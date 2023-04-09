@@ -4,8 +4,7 @@ import json
 
 client = pymongo.MongoClient("mongodb+srv://user:12345@cluster0.yezzjjp.mongodb.net/?retryWrites=true&w=majority")
 db = client.list
-res_s = db.subdivision_list.find()
-res_w = db.workers_list.find()
+
 
 def find_subdivision():
     client = pymongo.MongoClient("mongodb+srv://user:12345@cluster0.yezzjjp.mongodb.net/?retryWrites=true&w=majority")
