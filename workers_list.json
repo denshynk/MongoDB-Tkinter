@@ -1,0 +1,82 @@
+[
+    {
+        "_id": 1,
+        "adress": "м. Миколаїв вул. Куліша 12",
+        "date_of_birth": "14.01.1985",
+        "date_of_servece": "10.09.2020",
+        "email": "personal_gmail1@gmail.com",
+        "salary": 17500,
+        "telephone_number": "1631963568",
+        "worker_name": "Фараон Ірина Олександрівна"
+    },
+    {
+        "_id": 2,
+        "adress": "м. Херсон вул. 10-та лінія 64",
+        "date_of_birth": "24.03.1991",
+        "date_of_servece": "10.09.2021",
+        "email": "personal_gmail2@gmail.com",
+        "salary": 16500,
+        "telephone_number": "2631963568",
+        "worker_name": "Мельник Ірина Іванівна"
+    },
+    {
+        "_id": 3,
+        "adress": "м. Одеса вул. Біловодська 12",
+        "date_of_birth": "21.01.2001",
+        "date_of_servece": "10.09.2020",
+        "email": "personal_gmail3@gmail.com",
+        "salary": 17000,
+        "telephone_number": "3631963568",
+        "worker_name": "Дуб Володимир Олексійович"
+    },
+    {
+        "_id": 4,
+        "adress": "м. Миколаїв вул. Шестидесятників 86",
+        "date_of_birth": "30.11.1975",
+        "date_of_servece": "10.09.2020",
+        "email": "personal_gmail4@gmail.com",
+        "salary": 15500,
+        "telephone_number": "4631963568",
+        "worker_name": "Лев Олесь Олександрович"
+    },
+    {
+        "_id": 5,
+        "adress": "м. Миколаїв вул. Шестидесятників 80",
+        "date_of_birth": "09.10.1988",
+        "date_of_servece": "10.02.2018",
+        "email": "personal_gmail5@gmail.com",
+        "salary": 25500,
+        "telephone_number": "5631963568",
+        "worker_name": "Леопольд Іван Олегович"
+    },
+    {
+        "_id": 6,
+        "adress": "м. Київ вул. Народна 32",
+        "date_of_birth": "17.05.1989",
+        "date_of_servece": "10.09.2020",
+        "email": "personal_gmail6@gmail.com",
+        "salary": 14500,
+        "telephone_number": "6631963568",
+        "worker_name": "Джері Микита Вальдемарович"
+    },
+    {
+        "_id": 7,
+        "adress": "м. Одеса вул. Виговського 22",
+        "date_of_birth": "11.04.2002",
+        "date_of_servece": "10.09.2020",
+        "email": "personal_gmail7@gmail.com",
+        "salary": 17800,
+        "telephone_number": "7631963568",
+        "worker_name": "Джентрі Максим Евгенович"
+    },
+    {
+        "_id": 8,
+        "adress": "м. Одеса вул. Франка 19",
+        "date_of_birth": "22.07.1985",
+        "date_of_servece": "25.08.2016",
+        "email": "personal_gmail8@gmail.com",
+        "salary": 17500,
+        "telephone_number": "8631963568",
+        "worker_name": "Чорна Анна Володимірівна"
+    }
+]

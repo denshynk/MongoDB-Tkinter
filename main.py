@@ -13,7 +13,6 @@ workers_list = [{"_id": 1,'worker_name': 'Фараон Ірина Олексан
     {"_id": 7,'worker_name': 'Джентрі Максим Евгенович', 'date_of_birth': '11.04.2002', 'date_of_servece': '10.09.2020', 'email': 'personal_gmail7@gmail.com', 'adress': 'м. Одеса вул. Виговського 22', 'telephone_number': '7631963568', 'salary': 17800},
     {"_id": 8,'worker_name': 'Чорна Анна Володимірівна', 'date_of_birth': '22.07.1985', 'date_of_servece': '25.08.2016', 'email': 'personal_gmail8@gmail.com', 'adress': 'м. Одеса вул. Франка 19', 'telephone_number': '8631963568', 'salary': 17500}]
 
-workers = Worker.select()
 
 subdivision_list = [
         {"_id": 1,'organization_name': 'Національна поліція', 'subdivision_name': 'Департамент Національної поліції',  'number_of_workers': 5231},

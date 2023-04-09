@@ -1,0 +1,50 @@
+[
+    {
+        "_id": 1,
+        "number_of_workers": 5231,
+        "organization_name": "Національна поліція",
+        "subdivision_name": "Департамент Національної поліції"
+    },
+    {
+        "_id": 2,
+        "number_of_workers": 2131,
+        "organization_name": "Національна поліція",
+        "subdivision_name": "Управління Національної поліції"
+    },
+    {
+        "_id": 3,
+        "number_of_workers": 3231,
+        "organization_name": "Національна поліція",
+        "subdivision_name": "Секретаріат Національної поліції"
+    },
+    {
+        "_id": 4,
+        "number_of_workers": 5000,
+        "organization_name": "Національна поліція",
+        "subdivision_name": "Директорат Національної поліції"
+    },
+    {
+        "_id": 5,
+        "number_of_workers": 2280,
+        "organization_name": "Державна фіскальна служба",
+        "subdivision_name": "Департамент Державної фіскальної служби"
+    },
+    {
+        "_id": 6,
+        "number_of_workers": 1234,
+        "organization_name": "Державна фіскальна служба",
+        "subdivision_name": "Управління Державної фіскальної служби"
+    },
+    {
+        "_id": 7,
+        "number_of_workers": 6546,
+        "organization_name": "Державна фіскальна служба",
+        "subdivision_name": "Секретаріат Державної фіскальної служби"
+    },
+    {
+        "_id": 8,
+        "number_of_workers": 5451,
+        "organization_name": "Державна фіскальна служба",
+        "subdivision_name": "Директорат Державної фіскальної служби"
+    }
+]
