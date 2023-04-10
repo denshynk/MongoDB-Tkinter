@@ -5,25 +5,7 @@ import json
 client = pymongo.MongoClient("mongodb+srv://user:12345@cluster0.yezzjjp.mongodb.net/?retryWrites=true&w=majority")
 db = client.list
 
-
-def find_subdivision():
-    client = pymongo.MongoClient("mongodb+srv://user:12345@cluster0.yezzjjp.mongodb.net/?retryWrites=true&w=majority")
-    db = client.list
-    res_s = db.subdivision_list.find()
-    l = list(res_s)
-    with open("subdivision_list.json", "w", encoding= "utf-8") as outfile:
-       json.dump(l, outfile, sort_keys=True, indent=4, ensure_ascii=False)
-    return l
-       
-def find_workers():
-    client = pymongo.MongoClient("mongodb+srv://user:12345@cluster0.yezzjjp.mongodb.net/?retryWrites=true&w=majority")
-    db = client.list
-    res_w = db.workers_list.find()
-    l = list(res_w)
-    with open("workers_list.json", "w", encoding= "utf-8") as outfile:
-       json.dump(l, outfile, sort_keys=True, indent=4, ensure_ascii=False)
-    return l
-
+#Рахуємо положення вікна
 def calc_pos(root):
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
@@ -33,21 +15,23 @@ def calc_pos(root):
     y_cordinate = int((screen_height/2) - (window_height/2))
     return window_width, window_height, x_cordinate, y_cordinate
 
+#Звертаємося до MongoDB та зчитуємо вміст таблиці
 def fetch_table(name):
     table = []
     if (True):
         
         if (name == 'workers'):  
-            for w in find_workers():
+            l = list(db.workers_list.find())
+            for w in l:
                 table.append((w['_id'], w["worker_name"], w["date_of_birth"], w["date_of_servece"], w["email"], w["adress"], w["telephone_number"], w["salary"]))
             return table
-        elif( name == 'subdivisions'):            
-            for s in find_subdivision():
+        elif( name == 'subdivisions'): 
+            l = list(db.subdivision_list.find())           
+            for s in l:
                 table.append(( s['_id'], s['organization_name'], s['subdivision_name'], s['number_of_workers']))
             return table
     
-
-
+#Виводимо на екран перше вікно з меню
 def load_frame1(root):
     #Закриваємо минуле вікно, якщо воно є
     if (root):
@@ -65,7 +49,6 @@ def load_frame1(root):
     frame1 = tk.Frame(root1, bg="#8a6284")
     frame1.pack(fill="both", expand=1)
     #Заголовок - постановка завдання
-    
     tk.Label(frame1,
              text="Інформаційна система автоматизації регіональних представництв фірми відповідно до розташування підрозділів, відділів та працівників, включаючи підпорядкованість",
              bg="#8a6284",
@@ -73,7 +56,7 @@ def load_frame1(root):
              font=("TkMenuFont", 20),
              wraplength=800
              ).pack()
-    
+    #Кнопки, що відкривають відповідні таблиці
     tk.Button(
         frame1,
         text="CLICK TO LOAD WORKERS TABLE", 
@@ -98,6 +81,7 @@ def load_frame1(root):
     
     root1.mainloop()
     
+#Створюємо масив з назвами колонок
 def get_col_names(name):
     worker_col = ['worker_id', 'worker_name', 'date_of_birth', ' date_of_servece', 'email', 'adress', 'telephone_number', 'salary']
     subdivision_col = ['subdivision_id', 'organization_name', 'subdivision_name', 'number_of_workers']
@@ -106,6 +90,7 @@ def get_col_names(name):
     else:
         return subdivision_col 
     
+#Завантажуємо вікно з таблицями та діями над ними    
 def load_frame2(title, table, root):
     cols = get_col_names(title)
     if root:
@@ -249,9 +234,8 @@ def load_frame2(title, table, root):
     ).grid(row=row, column=1, pady=15)
     root2.mainloop()
 
+#Додаємо запис у MongoDB
 def submit_add(entries, title1, cols, title, root):
-    client = pymongo.MongoClient("mongodb+srv://user:12345@cluster0.yezzjjp.mongodb.net/?retryWrites=true&w=majority")
-    db = client.list
     flag = True
     for entry in entries:
         #Вивести попередження, якщо поле пусте або з помилкою
@@ -265,21 +249,29 @@ def submit_add(entries, title1, cols, title, root):
         if (title1=='workers'):
             db.workers_list.insert_one({"_id": int(entries[0].get()), 'worker_name': entries[1].get(), 'date_of_birth': entries[2].get(), 'date_of_servece': entries[3].get(), 'email': entries[4].get(),'adress': entries[5].get(), 'telephone_number': entries[6].get(), 'salary': int(entries[7].get())})
             table = fetch_table('workers')
+            with open("new_worker.json", "a", encoding= "utf-8") as outfile:
+                json.dump(db.workers_list.find_one({"_id": int(entries[0].get())}), outfile, sort_keys=True, indent=4, ensure_ascii=False)
         elif (title1=='subdivisions'):
             db.subdivision_list.insert_one({"_id": int(entries[0].get()), 'organization_name': entries[1].get(), 'subdivision_name': entries[2].get(), 'number_of_workers': int(entries[3].get())})
-            table = fetch_table('subdivision')
+            table = fetch_table('subdivisions')
+            with open("new_subdivision.json", "a", encoding= "utf-8") as outfile:
+                json.dump(db.subdivision_list.find_one({"_id": int(entries[0].get())}), outfile, sort_keys=True, indent=4, ensure_ascii=False)
         #Перезавантажити вікно, щоб відобразити нові дані
+    
     load_frame2(title, table, root)
 
+#Видалити значення за айді
 def submit_delete(root, title1, entry_id, cols, title):
-    client = pymongo.MongoClient("mongodb+srv://user:12345@cluster0.yezzjjp.mongodb.net/?retryWrites=true&w=majority")
-    db = client.list
     #Якщо поле айді не порожнє
     if (entry_id.get().strip()):
         if (title1=='workers'):
+            with open("delete_worker.json", "a", encoding= "utf-8") as outfile:
+                json.dump(db.workers_list.find_one({"_id": int(entry_id.get())}), outfile, sort_keys=True, indent=4, ensure_ascii=False)
             db.workers_list.delete_one({"_id" : int(entry_id.get())})
             table = fetch_table('workers')
         elif (title1=='subdivisions'):
+            with open("delete_subdivisions.json", "a", encoding= "utf-8") as outfile:
+                json.dump(db.subdivision_list.find_one({"_id": int(entry_id.get())}), outfile, sort_keys=True, indent=4, ensure_ascii=False)
             db.subdivision_list.delete_one({"_id" : int(entry_id.get())})
             table = fetch_table('subdivisions')
         #Відкриваємо вікно з відображеними змінами
@@ -320,7 +312,9 @@ def submit_edit(entries, title1, cols, title, root):
                         newvalue = {"$set": {"salary": int(entries[e].get()) }}
                         db.workers_list.update_one(worker, newvalue)
             table = fetch_table('workers')
-            
+            with open("edit_worker.json", "a", encoding= "utf-8") as outfile:
+                json.dump(db.workers_list.find_one(worker), outfile, sort_keys=True, indent=4, ensure_ascii=False)
+        
         elif (title1=='subdivisions'):
             subdivision = {"_id": int(entries[0].get())}
             entries.pop(0)
@@ -336,8 +330,11 @@ def submit_edit(entries, title1, cols, title, root):
                     elif (e == 2):
                         newvalue = {"$set": {"number_of_workers": int(entries[e].get()) }}
                         db.subdivision_list.update_one(subdivision, newvalue)
-                
             table = fetch_table('subdivisions') 
+            with open("edit_subdivisions.json", "a", encoding= "utf-8") as outfile:
+                json.dump(db.subdivision_list.find_one(subdivision), outfile, sort_keys=True, indent=4, ensure_ascii=False)
+        #Відкриваємо вікно з відображеними змінами
+        load_frame2(title, table, root)    
     #Якщо поле з айді порожнє                                                   
     else:
         entries[0].delete(0, "end")
